@@ -1,25 +1,63 @@
 public class AddTwoNumbers {
     public static void main(String[] args) {
         AddTwoNumbersSolution s = new AddTwoNumbersSolution();
-        ListNode node1 = new ListNode(2);
-        ListNode node1_2 = new ListNode(2);
-        ListNode node1_3 = new ListNode(2);
+//        ListNode node1 = new ListNode(2);
+//        ListNode node1_2 = new ListNode(2);
+//        ListNode node1_3 = new ListNode(2);
+//
+//        ListNode node2 = new ListNode(5);
+//        ListNode node2_2 = new ListNode(6);
+//        ListNode node2_3 = new ListNode(4);
+//
+//        node1.next = node1_2;
+//        node1_2.next = node1_3;
+//
+//        node2.next = node2_2;
+//        node2_2.next = node2_3;
+//
+//        s.addTwoNumbers(node1, node2);
 
-        ListNode node2 = new ListNode(5);
-        ListNode node2_2 = new ListNode(6);
-        ListNode node2_3 = new ListNode(4);
+        ListNode node1 = new ListNode(1);
+        ListNode node1_2 = new ListNode(2);
 
         node1.next = node1_2;
-        node1_2.next = node1_3;
 
-        node2.next = node2_2;
-        node2_2.next = node2_3;
-
-        s.addTwoNumbers(node1, node2);
+        s.removeNthFromEnd(node1, 2);
     }
 }
 
 class AddTwoNumbersSolution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        int nodeSize = getNodeSize(head, 1);
+        if (nodeSize == 1 && n == 1) {
+            return null;
+        } else if (nodeSize == n) {
+            return head.next;
+        } else {
+            removeReverseIndexNode(head, nodeSize, n);
+            return head;
+        }
+    }
+
+    public void removeReverseIndexNode(ListNode node, int nextSize, int n) {
+        ListNode resultNode = new ListNode();
+
+        if (nextSize - 1 == n) {
+            node.next = node.next.next;
+        } else {
+            removeReverseIndexNode(node.next, nextSize - 1, n);
+        }
+    }
+
+    public int getNodeSize(ListNode node, int currSize) {
+        int result = currSize;
+        if (node.next != null) {
+            result = getNodeSize(node.next, currSize + 1);
+        }
+
+        return result;
+    }
+
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode resultList = new ListNode();
 
