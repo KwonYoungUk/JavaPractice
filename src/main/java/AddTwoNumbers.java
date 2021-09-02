@@ -40,8 +40,6 @@ class AddTwoNumbersSolution {
     }
 
     public void removeReverseIndexNode(ListNode node, int nextSize, int n) {
-        ListNode resultNode = new ListNode();
-
         if (nextSize - 1 == n) {
             node.next = node.next.next;
         } else {
